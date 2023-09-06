@@ -11,6 +11,16 @@
 #include <list>
 #include <tuple>
 
+/**
+@file    main.cpp
+@author  xxxx
+@date    xx.xx.xxxx
+@brief   Файл реализации вывода условного IP адреса
+*/
+
+/**
+@brief   Вывод целочисленных типов
+*/
 template<typename T, std::enable_if_t<std::is_integral_v<T>, bool> = true>
 void printIP(const T& integral) 
 {
@@ -29,12 +39,18 @@ void printIP(const T& integral)
   std::wcout << std::endl;
 }
 
+/**
+@brief   Вывод строки
+*/
 template<typename T, std::enable_if_t<std::is_same_v<T,std::string>, bool> = true>
 void printIP( const T& string ) 
 {
   std::cout << string << std::endl;
 }
 
+/**
+@brief   Вывод std::vector и std::list
+*/
 template<template<typename, typename> typename T, typename Type, typename Allocator = std::allocator<Type>, 
                   std::enable_if_t<std::is_same_v<T<Type, Allocator>, std::vector<Type>> || std::is_same_v<T<Type, Allocator>, std::list<Type>>, bool> = true >
 void printIP( const T<Type, Allocator>& container )
@@ -48,6 +64,9 @@ void printIP( const T<Type, Allocator>& container )
   std::cout << std::endl;
 }
 
+/**
+@brief   Проверка всех элементов кортежа на принадлежность одному типу
+*/
 template< size_t N, typename ...ValueTypes>
 struct is_all
 {
@@ -55,12 +74,18 @@ struct is_all
   static const bool value = std::is_same_v<std::tuple_element_t<0, myTuple>, std::tuple_element_t<1, myTuple>> && is_all<N - 2, ValueTypes...>::value;
 };
 
+/**
+@brief   Крайний случай рекурсивной проверки элементов кортежа на принадлежность одному типу
+*/
 template<typename ...ValueTypes>
 struct is_all<0, ValueTypes...>
 {
   static const bool value = true;
 };
 
+/**
+@brief   Вывод кортежа
+*/
 template<template<typename...> typename T, typename ...ValueTypes,
   std::enable_if_t<std::is_same_v<T<ValueTypes...>, std::tuple<ValueTypes...>> && is_all<std::tuple_size<T<ValueTypes...>>::value, ValueTypes...>::value, bool > = true >/*&& is_all<4, ValueTypes...>::value>*/
   void printIP( const T<ValueTypes...>& tuple )
