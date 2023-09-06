@@ -14,11 +14,11 @@
 template<typename T, std::enable_if_t<std::is_integral_v<T>, bool> = true>
 void printIP(const T& integral) 
 {
-  const auto countOfBytes = sizeof( T );
+  const unsigned countOfBytes = sizeof( T );
   auto offset = 56;
   const auto step_offset = 8;
   uint8_t temp;
-  for ( auto i = 0; i < countOfBytes; ++i )
+  for ( unsigned i = 0; i < countOfBytes; ++i )
   {
     if ( i != 0 )
       std::wcout << ".";
