@@ -1,0 +1,9 @@
+PROJECT_NAME           = "print_ip"
+PROJECT_NUMBER         = 
+PROJECT_BRIEF          = "C++17 Implementation of print_ip project"
+OUTPUT_DIRECTORY       = ./doc/
+OUTPUT_LANGUAGE        = English
+GENERATE_LATEX         = NO
+EXTRACT_ALL            = YES
+INPUT                  = .
+RECURSIVE              = YES
