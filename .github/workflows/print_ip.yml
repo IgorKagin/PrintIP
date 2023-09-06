@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: true
-      - run: cmake. -DPATCH_VERSION=${{github.run_number}}
+      - run: cmake . -DPATCH_VERSION=${{github.run_number}}
       - run: cmake --build .
       - run: cmale --build . target-package
       - name: Create Release
