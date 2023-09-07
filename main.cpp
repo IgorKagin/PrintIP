@@ -19,8 +19,9 @@
 */
 
 /**
-@brief   Вывод целочисленных типов
-*/
+ * Вывод целочисленных типов
+ * @tparam T integral type
+ */
 template<typename T, std::enable_if_t<std::is_integral_v<T>, bool> = true>
 void printIP(const T& integral) 
 {
@@ -40,8 +41,9 @@ void printIP(const T& integral)
 }
 
 /**
-@brief   Вывод строки
-*/
+ * Вывод строки
+ * @tparam T std::string type
+ */
 template<typename T, std::enable_if_t<std::is_same_v<T,std::string>, bool> = true>
 void printIP( const T& string ) 
 {
@@ -49,8 +51,9 @@ void printIP( const T& string )
 }
 
 /**
-@brief   Вывод std::vector и std::list
-*/
+ * Вывод std::vector и std::list
+ * @tparam T std::list type or std::vector type
+ */
 template<template<typename, typename> typename T, typename Type, typename Allocator = std::allocator<Type>, 
                   std::enable_if_t<std::is_same_v<T<Type, Allocator>, std::vector<Type>> || std::is_same_v<T<Type, Allocator>, std::list<Type>>, bool> = true >
 void printIP( const T<Type, Allocator>& container )
@@ -65,8 +68,9 @@ void printIP( const T<Type, Allocator>& container )
 }
 
 /**
-@brief   Проверка всех элементов кортежа на принадлежность одному типу
-*/
+ *  Проверка всех элементов кортежа на принадлежность одному типу
+ * @tparam ...ValueTypes of std::tuble type
+ */
 template< size_t N, typename ...ValueTypes>
 struct is_all
 {
@@ -75,8 +79,8 @@ struct is_all
 };
 
 /**
-@brief   Крайний случай рекурсивной проверки элементов кортежа на принадлежность одному типу
-*/
+ *  Крайний случай рекурсивной проверки элементов кортежа на принадлежность одному типу
+ */
 template<typename ...ValueTypes>
 struct is_all<0, ValueTypes...>
 {
@@ -84,8 +88,9 @@ struct is_all<0, ValueTypes...>
 };
 
 /**
-@brief   Вывод кортежа
-*/
+ *  Вывод кортежа
+ * @tparam T std::tuble type
+ */
 template<template<typename...> typename T, typename ...ValueTypes,
   std::enable_if_t<std::is_same_v<T<ValueTypes...>, std::tuple<ValueTypes...>> && is_all<std::tuple_size<T<ValueTypes...>>::value, ValueTypes...>::value, bool > = true >/*&& is_all<4, ValueTypes...>::value>*/
   void printIP( const T<ValueTypes...>& tuple )
